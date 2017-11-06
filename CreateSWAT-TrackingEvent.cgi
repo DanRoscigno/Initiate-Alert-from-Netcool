@@ -57,7 +57,7 @@ session        = SWAT_info['SWAT_session']
 issue          = SWAT_info['SWAT_issue']
 customer       = SWAT_info['SWAT_customer']
 opsteam        = SWAT_info['opsteam']
-Identifier     = 'Initiate SWAT Tool' + str(time.time()) + opsteam
+Identifier     = 'Initiate SWAT Tool ' + str(time.time()) + ' ' + opsteam
 Where          = customer + ' ' + SWAT_info['SWAT_environment']
 Summary        = 'Customer: ' + customer + ' Env: ' + SWAT_info['SWAT_environment'] 
 TTNumber       = session
@@ -115,6 +115,10 @@ event_data = {
             "name":"Summary"
          },
          {
+            "type":"string",
+            "name":"OpsTeam"
+         },
+         {
             "type":"utc",
             "name":"FirstOccurrence"
          },
@@ -140,6 +144,7 @@ event_data = {
             "Type": Type,
             "Manager":"Initiate SWAT Tool",
             "Summary": "%s" % Summary,
+            "OpsTeam": "%s" % opsteam,
             "FirstOccurrence": LastOccurrence,
             "LastOccurrence": LastOccurrence,
             "OwnerUID":0,
