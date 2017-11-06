@@ -17,3 +17,15 @@ Here is the flow I am starting with:
       - Create a Slack channel for the SWAT
       - Notify the DevOps team of the SWAT and give them the Slack channel URL
       - Send the SWAT Close page when the service is available for the impacted customer
+
+
+
+
+
+This is the curl from the docs:
+
+curl -X POST -v -u root:*pass* \
+     -H "Accept:application/json" \
+     -H "Content-Type: application/json" \
+     -d @event-template.json \
+     http://localhost:8080/objectserver/restapi/alerts/status
