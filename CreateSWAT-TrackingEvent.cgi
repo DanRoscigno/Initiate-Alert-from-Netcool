@@ -46,7 +46,7 @@ SWAT_info = dict(urlparse.parse_qsl(os.environ['QUERY_STRING']))
 """
 This gives me these keys:
     Key				          Description
-  SWAP_opsteam      Ops team to page
+  Service           Impacted service
   SWAT_issue        Issue reported by customer
   SWAT_customer     Customer name and environment
   WEBTOP_USER       Username in Netcool
@@ -56,8 +56,8 @@ import time
 session        = SWAT_info['SWAT_session']
 issue          = SWAT_info['SWAT_issue']
 customer       = SWAT_info['SWAT_customer']
-opsteam        = SWAT_info['opsteam']
-Identifier     = 'Initiate SWAT Tool ' + str(time.time()) + ' ' + opsteam
+Service        = SWAT_info['Service']
+Identifier     = 'Initiate SWAT Tool ' + str(time.time()) + ' ' + Service
 Where          = customer + ' ' + SWAT_info['SWAT_environment']
 Summary        = 'Customer: ' + customer + ' Env: ' + SWAT_info['SWAT_environment'] 
 TTNumber       = session
@@ -116,7 +116,7 @@ event_data = {
          },
          {
             "type":"string",
-            "name":"OpsTeam"
+            "name":"application"
          },
          {
             "type":"utc",
@@ -144,7 +144,7 @@ event_data = {
             "Type": Type,
             "Manager":"Initiate SWAT Tool",
             "Summary": "%s" % Summary,
-            "OpsTeam": "%s" % opsteam,
+            "application": "%s" % Service,
             "FirstOccurrence": LastOccurrence,
             "LastOccurrence": LastOccurrence,
             "OwnerUID":0,
