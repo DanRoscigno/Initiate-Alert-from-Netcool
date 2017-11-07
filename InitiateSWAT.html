@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Initiate SWAT</title>
+</head>
+<body>
+
+  <h3> Initiate SWAT </h3>
+This page allows you to page the SRE team and CSR team to alert them of a new SWAT.<br><br>
+
+NOTE: 
+Fill in the information.  Please note that the <b>Time raised by client</b> field is filled in for you with the current time in GMT.  Adjust that time as needed.  For example, if the customer reporter the issue three minutes ago and the time in the form shows the current time, just subtract three minutes and write over the text in the form.  We put the current time in so that you do not have to convert to GMT in your head.<br><br>
+
+<br>
+
+<form method="post" action="/ibm/console/webtop/cgi-bin/InitiateSWATTEST.cgi">
+<fieldset>
+<legend>Client Name</legend>
+<input type="text" name="SWAT_customer" size="100" required>
+<br>
+<br>
+<legend>CARE Session number</legend>
+<input type="text" name="SWAT_session" size="100" value="" required>
+<br>
+<br>
+<legend>Time raised by client (GMT Please)</legend>
+<input id='date' size="100" type='date'name="SWAT_TimeRaised" value='2009-11-11' required>
+<br>
+<br>
+<legend>Issue reported</legend>
+<input type="text" name="SWAT_issue" size="100" value="" required>
+<br>
+<br>
+<legend>Client environment</legend>
+<input type="text" name="SWAT_environment" size="100" value="" required>
+</fieldset>
+<br>
+<fieldset>
+Note: When selecting the impacted service you can choose the service or the Networking Team if the issue involves a ......
+<legend>Impacted Service</legend>
+<select name="Service" required>
+  <option disabled selected value> -- select a service -- </option>
+  <option value="FOO">Foo SaaS</option>
+  <option value="BAR">Bar SaaS</option>
+  <option value="BLAT">Blat SaaS</option>
+  <option value="Network">Networking Team</option>
+</select>
+</fieldset>
+<br>
+  <input type="submit" value="Initiate SWAT">
+  </form>
+<script>
+(function () {
+    var date = new Date().toUTCString(),
+        field = document.querySelector('#date');
+    field.value = date;
+    console.log(field.value);
+
+})();
+</script>
+</body>
+
+</html>
