@@ -3,8 +3,13 @@ import requests
 import json
 import sys
 
-token = 'xoxp-4511607439-197777274292-215108860375-a61999c82beae8a29ed58c02c1551c2b'
-URI = 'https://slack.com/api/channels.create'
+import ConfigParser
+Config = ConfigParser.ConfigParser()
+Config.read("/opt/IBM/netcool/gui/omnibus_webgui/etc/cgi-bin/AlertNotification.ini")
+
+# Up top we read the config, now we will lookup the username and password for Alert Notification
+token = Config.get('SLACKTEAM', 'token')
+URI   = Config.get('SLACKTEAM', 'URI')
 
 
 r = requests.post(URI, data={'token': token, 'name': 'dan-test-6'})
@@ -22,4 +27,4 @@ else:
         print 'The channel creation failed, the error message is:\n%s' % resp_dict['error']
     else:
         print 'Channel creation OK'
-   
+        
