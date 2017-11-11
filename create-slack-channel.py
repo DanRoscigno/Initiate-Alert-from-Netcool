@@ -11,8 +11,21 @@ Config.read("/opt/IBM/netcool/gui/omnibus_webgui/etc/cgi-bin/AlertNotification.i
 token = Config.get('SLACKTEAM', 'token')
 URI   = Config.get('SLACKTEAM', 'URI')
 
+import argparse
+parser = argparse.ArgumentParser(description='This program connects to a Slack team and creates a channel based on a name passed in by the user.')
 
-r = requests.post(URI, data={'token': token, 'name': 'dan-test-6'})
+
+parser.add_argument('--session', '-s', action='store', dest='session',
+                    help='Customer Care Session')
+
+parser.add_argument('--application', '-a', action='store', dest='app',
+                    help='Impacted service')
+
+args = parser.parse_args()
+
+channel = 'sre-' + args.session + '-' + args.app
+
+r = requests.post(URI, data={'token': token, 'name': channel})
 r.raise_for_status()
 if not r.ok:
     raise ValueError(
@@ -27,4 +40,5 @@ else:
         print 'The channel creation failed, the error message is:\n%s' % resp_dict['error']
     else:
         print 'Channel creation OK'
-        
+        print 'Channel name: %s' % resp_dict["channel"]["name_normalized"]
+        print 'Channel ID: %s' % resp_dict["channel"]["id"]
