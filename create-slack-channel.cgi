@@ -13,6 +13,7 @@ print """
 
 <body>
 
+  <pre>
 """
 
 import os, sys
@@ -40,13 +41,9 @@ alert_kvpairs = dict(item.split('=') for item in alert_string.split('&'))
 """
 This gives me these keys:
     Key                              Description
- $selected_rows.AlertKey             AlertKey
- $selected_rows.NodeAlias            IP Address
- $selected_rows.Summary	             Summary
- $selected_rows.ITMDisplayItem	     Alternate Summary
+ $selected_rows.TTNumber             The session number for this customer issue
+ $selected_rows.Identifier           The unique identifier for the OMNIbus event so that we can update it
  $selected_rows.application          Ops group (lookup for slack channel
- CONVERSION.$selected_rows.Severity  Severity String
- $selected_rows.Node                 Hostname
  $selected_rows.LastOccurrence       Time of most recent alert
 """
 
@@ -55,17 +52,6 @@ identifier     = alert_kvpairs['$selected_rows.Identifier']
 application    = alert_kvpairs['$selected_rows.application']
 lastoccurrence = alert_kvpairs['$selected_rows.LastOccurrence']
 
-print """
-  <input type="submit" value="Send to Slack">
-  </form>
-  <pre>
-  </pre>
-</body>
-
-</html>
-"""
-# % cgi.escape(message)
-#!/opt/IBM/netcool/python27/bin/python
 import requests
 import json
 import sys
@@ -99,3 +85,14 @@ else:
         print 'Channel ID: %s' % resp_dict["channel"]["id"]
    
 
+print """
+  </pre>
+  <br>
+  <form action="">
+    <div align="center"><input type="button" value="Close Window" onClick="javascript:window.close();"></div>
+  </form>
+</body>
+
+</html>
+"""
+# % cgi.escape(message)
