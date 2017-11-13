@@ -23,7 +23,7 @@ import requests
 Put your OMNIbus REST API uri, username and pass into a config file
 AlertNotification.ini in this format:
 
-[DEMOOMNI]
+[AGG_V]
 URI: http://localhost:8080/objectserver/restapi/alerts/status
 username: root
 password: abcdef
@@ -79,9 +79,9 @@ epoch = int(time.mktime(time.strptime(date_time, pattern)))
 LastOccurrence = epoch
 
 # Up top we read the config, now we will lookup the username and password for Alert Notification
-URI        = Config.get('DEMOOMNI', 'URI')
-username   = Config.get('DEMOOMNI', 'username')
-password   = Config.get('DEMOOMNI', 'password')
+URI        = Config.get('AGG_V', 'URI')
+username   = Config.get('AGG_V', 'username')
+password   = Config.get('AGG_V', 'password')
 
 event_data = {
    "rowset":{
@@ -119,6 +119,10 @@ event_data = {
             "name":"application"
          },
          {
+            "type":"string",
+            "name":"TTNumber"
+         },
+         {
             "type":"utc",
             "name":"FirstOccurrence"
          },
@@ -137,18 +141,19 @@ event_data = {
       ],
       "rows":[
          {
-            "Identifier": "%s" % Identifier,
-            "Node":"localhost",
-            "AlertKey":"InitiateSWAT",
-            "Severity": Severity,
-            "Type": Type,
-            "Manager":"Initiate SWAT Tool",
-            "Summary": "%s" % Summary,
-            "application": "%s" % Service,
+            "Identifier"     : "%s" % Identifier,
+            "Node"           : "localhost",
+            "AlertKey"       : "InitiateSWAT",
+            "Severity"       : Severity,
+            "Type"           : Type,
+            "Manager"        : "Initiate SWAT Tool",
+            "Summary"        : "%s" % Summary,
+            "application"    : "%s" % Service,
+            "TTNumber"       : "%s" % TTNumber,
             "FirstOccurrence": LastOccurrence,
-            "LastOccurrence": LastOccurrence,
-            "OwnerUID":0,
-            "OwnerGID":0
+            "LastOccurrence" : LastOccurrence,
+            "OwnerUID"       : 0,
+            "OwnerGID"       : 0
          }
       ]
    }
